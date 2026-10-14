@@ -1,0 +1,137 @@
+<Window x:Class="FrameForge.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FrameForge — Gaming Optimizer · leandrosepulveda.com" Width="1120" Height="760" MinWidth="940" MinHeight="620"
+        Background="#0E1116" Foreground="#E6EAF0" FontFamily="Segoe UI" WindowStartupLocation="CenterScreen">
+  <Window.Resources>
+    <Style TargetType="Button">
+      <Setter Property="Background" Value="#1B222C"/><Setter Property="Foreground" Value="#E6EAF0"/>
+      <Setter Property="Padding" Value="14,9"/><Setter Property="Margin" Value="0,0,0,8"/><Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
+        <Border x:Name="b" Background="{TemplateBinding Background}" CornerRadius="7" Padding="{TemplateBinding Padding}">
+          <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+        <ControlTemplate.Triggers>
+          <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="b" Property="Opacity" Value="0.85"/></Trigger>
+          <Trigger Property="IsEnabled" Value="False"><Setter TargetName="b" Property="Opacity" Value="0.35"/></Trigger>
+        </ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="Accent" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="#00C27A"/><Setter Property="Foreground" Value="#04110B"/><Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <Style x:Key="Nav" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Margin" Value="0,0,8,0"/><Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style x:Key="Muted" TargetType="TextBlock"><Setter Property="Foreground" Value="#8A94A3"/><Setter Property="TextWrapping" Value="Wrap"/></Style>
+  </Window.Resources>
+
+  <Grid Margin="18">
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="140"/></Grid.RowDefinitions>
+
+    <DockPanel Margin="0,0,0,10">
+      <StackPanel>
+        <TextBlock Text="FrameForge" FontSize="30" FontWeight="Black" Foreground="#00C27A"/>
+        <TextBlock Style="{StaticResource Muted}" Text="Windows 10/11 optimizer for gaming · Intel · NVIDIA · AMD"/>
+      </StackPanel>
+      <Button DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" Click="Web_Click" Content="Creado por leandrosepulveda.com"/>
+    </DockPanel>
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+      <Button Style="{StaticResource Nav}" Tag="0" Click="Nav_Click" Content="⚡ Optimize"/>
+      <Button Style="{StaticResource Nav}" Tag="1" Click="Nav_Click" Content="🎮 Games"/>
+      <Button Style="{StaticResource Nav}" Tag="2" Click="Nav_Click" Content="🖥 GPU Guide"/>
+      <Button Style="{StaticResource Nav}" Tag="3" Click="Nav_Click" Content="ℹ About"/>
+    </StackPanel>
+
+    <Grid Grid.Row="2">
+      <!-- OPTIMIZE -->
+      <Grid x:Name="P0">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="270"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <StackPanel Margin="0,0,14,0">
+          <Border Background="#151A22" CornerRadius="8" Padding="12" Margin="0,0,0,12">
+            <StackPanel>
+              <TextBlock Text="YOUR PC" FontWeight="Bold" Foreground="#00C27A" Margin="0,0,0,6"/>
+              <TextBlock x:Name="TxtCpu" TextWrapping="Wrap" FontSize="12"/>
+              <TextBlock x:Name="TxtGpu" TextWrapping="Wrap" FontSize="12" Margin="0,6,0,0"/>
+              <TextBlock x:Name="TxtRam" FontSize="12" Margin="0,6,0,0"/>
+              <TextBlock x:Name="TxtOs" TextWrapping="Wrap" FontSize="12" Margin="0,6,0,0"/>
+            </StackPanel>
+          </Border>
+          <Button x:Name="BtnApply" Style="{StaticResource Accent}" Click="Apply_Click" Content="Apply selected"/>
+          <Button x:Name="BtnRevert" Click="Revert_Click" Content="Revert selected"/>
+          <Button x:Name="BtnRevertAll" Click="RevertAll_Click" Content="Revert all"/>
+          <Button Click="SelRec_Click" Content="Select recommended"/>
+          <Button Click="SelAll_Click" Content="Select all"/>
+          <Button Click="SelNone_Click" Content="Clear selection"/>
+          <Button Click="Restore_Click" Content="Create restore point"/>
+          <Button Click="Clean_Click" Content="Clean temp files + DNS"/>
+        </StackPanel>
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+          <ItemsControl x:Name="TweakList">
+            <ItemsControl.GroupStyle><GroupStyle><GroupStyle.HeaderTemplate><DataTemplate>
+              <TextBlock Text="{Binding Name}" FontSize="15" FontWeight="Bold" Foreground="#00C27A" Margin="4,14,0,4"/>
+            </DataTemplate></GroupStyle.HeaderTemplate></GroupStyle></ItemsControl.GroupStyle>
+            <ItemsControl.ItemTemplate><DataTemplate>
+              <Border Background="#151A22" CornerRadius="7" Margin="0,3,8,3" Padding="10,8">
+                <Grid>
+                  <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="110"/></Grid.ColumnDefinitions>
+                  <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                  <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding Description}" Style="{StaticResource Muted}" FontSize="12"/>
+                  </StackPanel>
+                  <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding RiskText}" Style="{StaticResource Muted}" FontSize="11" HorizontalAlignment="Right"/>
+                    <TextBlock Text="{Binding Status}" Foreground="#00C27A" FontSize="12" HorizontalAlignment="Right"/>
+                  </StackPanel>
+                </Grid>
+              </Border>
+            </DataTemplate></ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </Grid>
+
+      <!-- GAMES -->
+      <StackPanel x:Name="P1" Visibility="Collapsed" MaxWidth="760" HorizontalAlignment="Left">
+        <TextBlock Text="Optimize a specific game" FontSize="20" FontWeight="Bold"/>
+        <TextBlock Style="{StaticResource Muted}" Margin="0,6,0,14" Text="Pick the game's .exe. This applies: high-performance GPU (useful on laptops with integrated + dedicated graphics) and disabled fullscreen optimizations — plus High CPU priority only if you tick the box. All reversible."/>
+        <DockPanel Margin="0,0,0,10">
+          <Button DockPanel.Dock="Right" Margin="8,0,0,0" Click="Browse_Click" Content="Browse…"/>
+          <TextBox x:Name="TxtExe" Background="#151A22" Foreground="#E6EAF0" BorderBrush="#2A3240" Padding="8" VerticalContentAlignment="Center"/>
+        </DockPanel>
+        <CheckBox x:Name="ChkIfeo" Margin="0,0,0,10" Foreground="#E6EAF0" TextBlock.FontSize="12"
+                  Content="High CPU priority (touches Image File Execution Options). Do NOT use with games that have anticheat (Vanguard, EAC, BattlEye, FACEIT)."/>
+        <StackPanel Orientation="Horizontal">
+          <Button Style="{StaticResource Accent}" Margin="0,0,8,0" Click="GameApply_Click" Content="Optimize game"/>
+          <Button Click="GameRevert_Click" Content="Revert game"/>
+        </StackPanel>
+        <Button HorizontalAlignment="Left" Click="GfxSettings_Click" Content="Open Windows “Graphics settings”"/>
+      </StackPanel>
+
+      <!-- GPU -->
+      <Grid x:Name="P2" Visibility="Collapsed">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+          <Button Margin="0,0,8,0" Click="GfxSettings_Click" Content="Windows graphics settings"/>
+          <Button Margin="0,0,8,0" Click="Nvcp_Click" Content="NVIDIA Panel"/>
+          <Button Margin="0,0,8,0" Click="Power_Click" Content="Power options"/>
+          <Button Click="Drivers_Click" Content="Device Manager"/>
+        </StackPanel>
+        <TextBox x:Name="TxtGuide" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Background="#151A22" Foreground="#E6EAF0" BorderThickness="0" Padding="14" FontSize="13"/>
+      </Grid>
+
+      <!-- ABOUT -->
+      <StackPanel x:Name="P3" Visibility="Collapsed" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="FrameForge 1.0.2" FontSize="22" FontWeight="Bold"/>
+        <TextBlock Text="Creado por leandrosepulveda.com" Foreground="#00C27A" Margin="0,4,0,12"/>
+        <TextBlock Style="{StaticResource Muted}" Text="All tweaks are real, documented, and reversible: FrameForge saves each registry key's original value (C:\ProgramData\FrameForge\backup.json) and the “Revert” button restores it. Still, create a restore point before applying changes. No software tweak magically multiplies FPS: the real benefit is fewer stutters, less latency, and more free resources for the game."/>
+        <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+          <Button Margin="0,0,8,0" Click="Export_Click" Content="Export profile"/>
+          <Button Margin="0,0,8,0" Click="Import_Click" Content="Import profile"/>
+          <Button Click="SelfTest_Click" Content="Run self-test"/>
+        </StackPanel>
+      </StackPanel>
+    </Grid>
+
+    <TextBox x:Name="TxtLog" Grid.Row="3" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Background="#0A0D12" Foreground="#9FE8C4" FontFamily="Consolas" FontSize="12" BorderBrush="#2A3240" Padding="8" Margin="0,10,0,0"/>
+  </Grid>
+</Window>

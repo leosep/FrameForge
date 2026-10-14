@@ -1,0 +1,15 @@
+# .NET / Visual Studio
+[Bb]in/
+[Oo]bj/
+.vs/
+TestResults/
+
+# Build artefacts (rebuilt by build.bat; releases carry the binaries)
+publish/
+dist/
+
+# OS / editor noise
+Thumbs.db
+Desktop.ini
+*.user
+*.suo
