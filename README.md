@@ -9,8 +9,7 @@ Creado por leandrosepulveda.com
 
 FrameForge applies 25 documented, reversible Windows tweaks for gaming: fewer stutters, less latency, more free resources for your game. No magic FPS promises — every change is real, backed up, and revertible.
 
-> **Download the latest release:** https://github.com/leosep/FrameForge/releases
-> Grab **`FrameForge-Setup.exe`** (installer) or **`FrameForge.exe`** (portable).
+> **Download:** open the [`dist` folder](https://github.com/leosep/FrameForge/tree/main/dist) and grab **`FrameForge-Setup.exe`** (installer) or **`FrameForge.exe`** (portable).
 
 ---
 
